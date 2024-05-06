@@ -1,0 +1,215 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<Client>
+
+
+
+<div class="container-fluid filters" id="filterContainer" style="display: none;">
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <label for="ID">ID клиента</label>
+            <input type="text" class="form-control" id="ID" name="ID" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+        </div>
+        <div class="col-md-3">
+            <label for="full_name">ФИО клиента</label>
+            <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+        </div>
+        <div class="col-md-3">
+            <label for="reg_date">Дата регистрации</label>
+            <input type="text" class="form-control" id="reg_date" name="reg_date" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+        </div>
+        <div class="col-md-3">
+            <label for="country">Страна</label>
+            <input type="text" class="form-control" id="country" name="country" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <label for="city">Город</label>
+            <input type="text" class="form-control" id="city" name="city" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+        </div>
+        <div class="col-md-3">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" name="email" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+        </div>
+        <div class="col-md-3">
+            <label for="phone">Номер телефона</label>
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+        </div>
+        <div class="col-md-3">
+            <label for="pur_amount">Общая сумма покупки</label>
+            <input type="text" class="form-control" id="pur_amount" name="pur_amount" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <label for="cus_category">Категория клиента</label>
+            <input type="text" class="form-control" id="cus_category" name="cus_category" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+        </div>
+        <div class="col-md-3">
+            <label for="act_status">Статус</label>
+            <input type="text" class="form-control" id="act_status" name="act_status" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+        </div>
+        <div class="col-md-3">
+            <label for="last_visit">Дата последнего визита</label>
+            <input type="text" class="form-control" id="last_visit" name="last_visit" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+        </div>
+        <div class="col-md-3">
+            <label for="com_method">Методы коммуникации</label>
+            <input type="text" class="form-control" id="com_method" name="com_method" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <label for="addit_contact">Доп. контакт связи</label>
+            <input type="text" class="form-control" id="addit_contact" name="addit_contact" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+        </div>
+        <div class="col-md-3">
+            <label for="cus_prefer">Предпочтения</label>
+            <input type="text" class="form-control" id="cus_prefer" name="cus_prefer" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+        </div>
+        <div class="col-md-3">
+            <label for="lang">Язык (автозап)</label>
+            <input type="text" class="form-control" id="lang" name="lang" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+
+        </div>
+        <div class="col-md-3">
+            <label for="mar_status">Семейное положение</label>
+            <input type="text" class="form-control" id="mar_status" name="mar_status" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <label for="note">Примечание</label>
+            <input type="text" class="form-control" id="note" name="note" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+        </div>
+        <div class="col-md-3">
+            <label for="satis_lvl">Уровень удовлетворенности</label>
+            <input type="text" class="form-control" id="satis_lvl" name="satis_lvl" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+        </div>
+        <div class="col-md-3">
+            <label for="last_update">Дата последнего обновления</label>
+            <input type="text" class="form-control" id="last_update" name="last_update" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+        </div>
+        <div class="col-md-3">
+            <label for="cus_field">Пользовательские поля</label>
+            <input type="text" class="form-control" id="cus_field" name="cus_field" placeholder="Введите значение" autocomplete="off" onchange="filterClients()" />
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container-fluid text-center mt-3 filters">
+    <button id="toggleFilters" class="btn btn-primary">Показать/скрыть фильтры</button>
+</div>
+
+<hr />
+
+<div class="container-fluid">
+    <div class="row mt-2">
+        <table id="maintbl" class="table table-striped table-hover" style="width:100%">
+            @await Html.PartialAsync("_TableHeader")
+            <tbody id="partialTableContainer">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ClientID</td>
+                        <td>@item.NameClient</td>
+                        <td>@item.RegistrationDate.ToShortDateString()</td>
+                        <td>@item.Country</td>
+                        <td>@item.City</td>
+                        <td>@item.Email</td>
+                        <td>@item.PhoneNumber</td>
+                        <td>@item.TotalPurchaseAmount</td>
+                        <td>@item.CustomerCategory</td>
+                        <td>@item.ActiveStatus</td>
+                        <td>@item.LastVisitDate.ToShortDateString()</td>
+                        <td>@string.Join(", ", item.CommunicationMethods)</td>
+                        <td>@string.Join(", ", item.AdditionalContacts)</td>
+                        <td>@item.CustomerPreferences</td>
+                        <td>@item.LanguageSpeak</td>
+                        <td>@item.MaritalStatus</td>
+                        <td>@item.Notes</td>
+                        <td>@item.SatisfactionLevel</td>
+                        <td>@item.LastUpdateDate.ToShortDateString()</td>
+                        <td>@item.CustomFields</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.getElementById('toggleFilters').addEventListener('click', function () {
+        var filterContainer = document.getElementById('filterContainer');
+        filterContainer.style.display = (filterContainer.style.display === 'none' || filterContainer.style.display === '') ? 'block' : 'none';
+    });
+</script>
+
+<script>
+    // Функция для фильтрации клиентов
+    function filterClients() {
+        // Получение значений полей фильтрации
+        var id = document.getElementById('ID').value;
+        var fullName = document.getElementById('full_name').value;
+        var regDate = document.getElementById('reg_date').value;
+        var country = document.getElementById('country').value;
+        var city = document.getElementById('city').value;
+        var email = document.getElementById('email').value;
+        var phone = document.getElementById('phone').value;
+        var pur_amount = document.getElementById('pur_amount').value;
+        var cus_category = document.getElementById('cus_category').value;
+        var act_status = document.getElementById('act_status').value;
+        var last_visit = document.getElementById('last_visit').value;
+        var com_method = document.getElementById('com_method').value;
+        var addit_contact = document.getElementById('addit_contact').value;
+        var cus_prefer = document.getElementById('cus_prefer').value;
+        var lang = document.getElementById('lang').value;
+        var mar_status = document.getElementById('mar_status').value;
+        var note = document.getElementById('note').value;
+        var satis_lvl = document.getElementById('satis_lvl').value;
+        var last_update = document.getElementById('last_update').value;
+        var cus_field = document.getElementById('cus_field').value;
+
+        // Отправка Ajax запроса
+        $.ajax({
+            url: '/Home/FilterClients',
+            type: 'POST',
+            data: {
+                id: id,
+                fullName: fullName,
+                regDate: regDate,
+                country: country,
+                city: city,
+                email: email,
+                phone: phone,
+                purAmount: pur_amount,
+                cusCategory: cus_category,
+                actStatus: act_status,
+                lastVisit: last_visit,
+                comMethod: com_method,
+                additContact: addit_contact,
+                cusPrefer: cus_prefer,
+                lang: lang,
+                marStatus: mar_status,
+                note: note,
+                satisLvl: satis_lvl,
+                lastUpdate: last_update,
+                cusField: cus_field
+            },
+            success: function (result) {
+                // Обработка успешного ответа от сервера
+                console.log(result);
+                // Обновление только частиального представления
+                $('#maintbl').html(result);
+            },
+            error: function (error) {
+                // Обработка ошибки
+                console.log(error);
+            }
+        });
+    }
+</script>

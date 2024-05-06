@@ -1,0 +1,30 @@
+﻿@model List<Client>
+
+@await Html.PartialAsync("_TableHeader")
+<tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ClientID</td>
+            <td>@item.NameClient</td>
+            <td>@item.RegistrationDate.ToShortDateString()</td>
+            <td>@item.Country</td>
+            <td>@item.City</td>
+            <td>@item.Email</td>
+            <td>@item.PhoneNumber</td>
+            <td>@item.TotalPurchaseAmount</td>
+            <td>@item.CustomerCategory</td>
+            <td>@item.ActiveStatus</td>
+            <td>@item.LastVisitDate.ToShortDateString()</td>
+            <td>@string.Join(", ", item.CommunicationMethods)</td>
+            <td>@string.Join(", ", item.AdditionalContacts)</td>
+            <td>@item.CustomerPreferences</td>
+            <td>@item.LanguageSpeak</td>
+            <td>@item.MaritalStatus</td>
+            <td>@item.Notes</td>
+            <td>@item.SatisfactionLevel</td>
+            <td>@item.LastUpdateDate.ToShortDateString()</td>
+            <td>@item.CustomFields</td>
+        </tr>
+    }
+</tbody>
